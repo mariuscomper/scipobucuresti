@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemul electoral și Bucureștiul - O analiză</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Light Mode Colors */
+            --bg-color: #faf9f6; /* Off-white, mai ușor pentru ochi decât #fff */
+            --text-color: #2d2d2d;
+            --heading-color: #1a1a1a;
+            --accent-color: #2563eb; /* Royal Blue */
+            --quote-border: #e5e7eb;
+            --secondary-text: #525252;
+            --code-bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Colors */
+            --bg-color: #111827;
+            --text-color: #d1d5db;
+            --heading-color: #f3f4f6;
+            --accent-color: #60a5fa;
+            --quote-border: #374151;
+            --secondary-text: #9ca3af;
+            --code-bg: #1f2937;
+            --card-bg: #1f2937;
+            --shadow: none;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Merriweather', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 1.125rem; /* 18px */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Progress Bar */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+        #progress-bar {
+            height: 4px;
+            background: var(--accent-color);
+            width: 0%;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 740px; /* Optimal reading width (65-75 chars) */
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Inter', sans-serif;
+            color: var(--heading-color);
+            line-height: 1.3;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-top: 4rem;
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--quote-border);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        strong {
+            font-weight: 700;
+            color: var(--heading-color);
+        }
+
+        /* Blockquotes */
+        blockquote {
+            margin: 2rem 0;
+            padding-left: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-style: italic;
+            color: var(--secondary-text);
+            background: var(--code-bg);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* References Section */
+        .references {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--quote-border);
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+        }
+        .references p {
+            margin-bottom: 0.5rem;
+            text-indent: -1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        /* Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--quote-border);
+            color: var(--heading-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .theme-toggle:hover {
+            opacity: 0.8;
+        }
+
+        /* Utilities */
+        .separator {
+            text-align: center;
+            color: var(--quote-border);
+            margin: 3rem 0;
+            font-size: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; margin-top: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .container { padding: 1rem 1.25rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <button class="theme-toggle" id="theme-toggle" aria-label="Schimbă tema">
+        <span id="toggle-icon">☾</span>
+        <span id="toggle-text">Dark Mode</span>
+    </button>
+
+    <main class="container">
+        <header>
+            <h1>Sistemul electoral într-un singur tur și alegerile de primar: Ce ne spune literatura de specialitate despre București</h1>
+        </header>
+
+        <article>
+            <h2>I. Fundamentul teoretic: De la Duverger la problema coordonării</h2>
+            <p>Punctul de plecare obligatoriu pentru orice discuție despre alegerile într-un singur tur rămâne Maurice Duverger și celebra sa lucrare din 1954, <em>Political Parties</em>. Formularea sa a devenit atât de influentă încât poartă statutul rar de "lege" în științele sociale — un domeniu notoriously reticent în a proclama regularități universale. Duverger susținea că sistemele electorale cu plurality (câștigătorul ia totul în baza unei pluralități simple, nu a unei majorități) tind să producă sisteme bipartite sau, cel puțin, competiție bipolară concentrată în jurul a doi candidați principali.</p>
+            
+            <p>Mecanismele identificate de Duverger sunt elegante în simplitatea lor. Primul este <strong>efectul mecanic</strong>: într-un sistem unde doar câștigătorul contează, toate voturile pentru perdanți sunt, într-un sens, "irosite". Nu există premii de consolare, nu există reprezentare proporțională care să răsplătească un scor onorabil. Dacă obții 30% iar adversarul tău obține 31%, rezultatul este identic cu cel în care ai fi obținut 1%. Această brutalitate a sistemului descurajează structural fragmentarea — sau cel puțin așa ar trebui.</p>
+            
+            <p>Al doilea mecanism este <strong>efectul psihologic</strong>, care operează atât asupra alegătorilor cât și asupra candidaților. Alegătorii rațional-instrumentali — cei care votează pentru a influența rezultatul, nu doar pentru a-și exprima preferințele — vor abandona candidații percepuți ca fiind fără șanse. De ce să-ți "irosești" votul pe cineva care oricum va pierde? Mai bine votezi pentru "răul cel mai mic" dintre candidații viabili. Similar, potențialii candidați care anticipează un scor modest vor prefera să nu candideze deloc sau să se retragă în favoarea unui candidat mai puternic din aceeași tabără ideologică.</p>
+            
+            <p>Însă ceea ce face Legea lui Duverger fascinantă din perspectivă științifică nu este doar formularea ei, ci excepțiile sistematice pe care le admite. Duverger însuși nu considera principiul său absolut; el vorbea mai degrabă despre o tendință, o forță care "întârzie apariția noilor forțe politice și accelerează eliminarea celor în declin". Iar deceniile de cercetare care au urmat au demonstrat că excepțiile sunt la fel de instructive ca și regula.</p>
+
+            <h2>II. Gary Cox și reformularea problemei: Coordonarea ca joc strategic</h2>
+            <p>Contribuția decisivă în rafinarea cadrului duvergerian aparține lui Gary Cox, a cărui lucrare din 1997, <em>Making Votes Count</em>, a câștigat cele mai prestigioase premii din știința politică americană (Wilson Prize, Luebbert Prize). Cox reformulează întreaga problemă în termenii teoriei jocurilor: sistemele electorale nu "produc" pur și simplu anumite rezultate, ci pun actorilor politici probleme de coordonare pe care aceștia trebuie să le rezolve.</p>
+            
+            <p>Perspectiva lui Cox este esențială pentru înțelegerea alegerilor din București. În modelul său, Legea lui Duverger funcționează doar când sunt îndeplinite anumite condiții: alegătorii trebuie să fie instrumental-raționali (să le pese de cine câștigă, nu doar de exprimarea preferințelor), iar acești alegători trebuie să aibă așteptări raționale — adică să poată identifica care candidați sunt viabili și care nu.</p>
+            
+            <p>Aici apare problema critică: coordonarea poate eșua. Și când eșuează, sistemul plurality nu mai produce rezultate duvergerian-ortodoxe. Cox identifică mai multe tipuri de eșecuri ale coordonării:</p>
+            
+            <ul>
+                <li><strong>Eșecul coordonării la nivel de elite</strong> apare când candidații care ar trebui să se retragă refuză să o facă. Poate că fiecare consideră că tocmai el ar trebui să fie candidatul-fanion al taberei sale. Poate că există animozități personale care împiedică negocierea. Poate că structurile de partid sunt prea slabe pentru a impune disciplină. Sau poate că fiecare candidat speră să beneficieze de o "surpriză" — un eveniment neprevăzut care să-l catapulteze în frunte.</li>
+                <li><strong>Eșecul coordonării la nivel de alegători</strong> apare când votanții nu reușesc să identifice corect cine este viabil și cine nu. Dacă sondajele sunt imprecise, dacă informația este limitată, sau dacă există incertitudine genuină despre preferințele celorlalți alegători, atunci efectul psihologic al lui Duverger nu poate opera. Alegătorii nu-și abandonează candidatul preferat pentru unul "viabil" dacă nu știu care candidat este de fapt viabil.</li>
+            </ul>
+            
+            <p>Cox introduce și conceptul crucial de <em>M+1 rule</em>: într-un sistem cu M locuri disponibile (în cazul alegerilor de primar, M=1), ne așteptăm ca numărul de candidați viabili să graviteze către M+1, adică 2. Dar aceasta este o limită superioară, nu o garanție. Când coordonarea eșuează, putem avea semnificativ mai mulți candidați care împart voturile.</p>
+
+            <h2>III. Spoiler Effect: Anatomia fragmentării electorale</h2>
+            <p>Literatura pe "spoiler effect" — efectul prin care un candidat minor modifică rezultatul fără a câștiga el însuși — oferă unele dintre cele mai relevante perspective pentru București.</p>
+            
+            <p>Studiul clasic în acest sens rămâne analiza lui Herron și Lewis (2007) asupra alegerilor prezidențiale americane din 2000, unde au examinat la nivel de buletin dacă Ralph Nader i-a "furat" victoria lui Al Gore în Florida. Metodologia lor — reconstrucția preferințelor de ordinul doi ale alegătorilor pentru candidați minori — a demonstrat că spoiler effect-ul nu este doar o speculație, ci un fenomen măsurabil și substanțial.</p>
+            
+            <p>Însă cercetări mai recente au complicat tabloul într-un mod fascinant. Wang și Chen (2019) au introdus conceptul de "range effect" din psihologia cognitivă: atunci când un candidat extrem intră în cursă, el redefinește spectrul ideologic perceput. Paradoxal, acest lucru poate face ca un candidat moderat din aceeași tabără să pară și mai moderat prin contrast. Experimentele lor în SUA și Taiwan au arătat că, în anumite configurații, un "spoiler" poate de fapt ajuta candidatul principal al taberei sale prin acest mecanism de recadrare.</p>
+            
+            <p>Această nuanță este importantă pentru București, unde fragmentarea nu este întotdeauna un accident sau o eroare de coordonare, ci poate fi uneori o strategie deliberată. Un partid ar putea tolera sau chiar încuraja candidaturi "satelit" care să definească granițele spectrului politic în mod favorabil.</p>
+
+            <h2>IV. Legitimitatea câștigătorilor minoritari: Perspectiva Lijphart</h2>
+            <p>Arend Lijphart, probabil cel mai influent comparativist în domeniul sistemelor electorale după Duverger, a dedicat o carieră întreagă studierii modurilor în care democrațiile își organizează reprezentarea. Lucrările sale — de la <em>Democracy in Plural Societies</em> (1977) la <em>Patterns of Democracy</em> (1999, ed. 2 2012) — oferă un cadru normativ pentru evaluarea legitimității rezultatelor electorale.</p>
+            
+            <p>Lijphart distinge fundamental între democrații majoritariste (Westminster) și democrații consensuale. Sistemele plurality aparțin primei categorii și sunt caracterizate de ceea ce Lijphart numește "manufactured majorities" — majorități parlamentare obținute fără majoritate populară. Datele sale din Noua Zeelandă sunt edificatoare: în 1978, Partidul Național a câștigat o majoritate clară de locuri (51 din 92) cu doar 39.8% din voturi — mai puțin decât Labour, care avusese 40.4%. În 1981, pattern-ul s-a repetat cu o distribuție și mai strânsă.</p>
+            
+            <blockquote>
+                Pentru alegeri executive într-un singur tur (precum cele de primar), implicația este și mai directă: un câștigător poate să nu reprezinte preferințele majorității alegătorilor, ba chiar poate să fie activ respins de o majoritate.
+            </blockquote>
+            
+            <p>Dacă trei candidați obțin 30%, 28% și 27%, câștigătorul cu 30% ar putea fi ultima preferință pentru cei 55% care au votat cu ceilalți doi. Sistemul plurality nu oferă nicio modalitate de a detecta sau corecta această situație.</p>
+            
+            <p>Lijphart argumentează că această problemă afectează legitimitatea democratică: cum poate un oficial ales să pretindă că vorbește "în numele poporului" când o majoritate clară a poporului a votat împotriva sa? Răspunsul apărătorilor sistemului plurality este că simplitatea și claritatea rezultatului compensează — știi imediat cine a câștigat, fără negocieri post-electorale sau coaliții. Dar Lijphart consideră acest trade-off inacceptabil în societățile plurale și fragmentate.</p>
+
+            <h2>V. William Riker și imposibilitatea "voinței poporului"</h2>
+            <p>O perspectivă mai sceptică, dar profund influentă, vine de la William Riker și școala "Rochester" de public choice. În <em>Liberalism Against Populism</em> (1982), Riker mobilizează rezultatele devastatoare ale teoriei alegerii sociale — în special teorema imposibilității lui Arrow și teorema haosului McKelvey-Schofield — pentru a argumenta că nu există nicio metodă de vot care să traducă fidel preferințele individuale într-o "voință colectivă".</p>
+            
+            <p>Toate sistemele de vot sunt manipulabile, susține Riker. Rezultatele depind de ordinea în care sunt luate deciziile (agenda control), de modul în care sunt prezentate alternativele, și de comportamentul strategic al participanților. În acest sens, nu putem niciodată ști dacă un rezultat electoral reflectă "adevăratele" preferințe ale alegătorilor sau este un artefact al regulilor și manipulărilor.</p>
+            
+            <p>Această perspectivă poate părea nihilistă, dar Riker extrage din ea o concluzie mai subtilă: dacă nu putem avea democrație "populistă" (care să implementeze voința poporului), putem cel puțin avea democrație "liberală" — una care permite alegătorilor să-i "dea afară pe ticăloși" (throw the rascals out). Funcția alegerilor nu este să reveleze preferințe agregate, ci să creeze un mecanism de responsabilizare: oficialii care performează prost pot fi înlocuiți.</p>
+            
+            <p>Pentru București, perspectiva rikeriană sugerează că întrebarea corectă nu este "a câștigat cel mai popular candidat?", ci "pot alegătorii să pedepsească un primar care a guvernat prost?". Iar aici, sistemele plurality într-un singur tur au o vulnerabilitate specifică: un incumbent nepopular poate supraviețui tocmai pentru că opoziția este fragmentată.</p>
+
+            <h2>VI. Dovezi empirice din alegeri municipale comparabile</h2>
+            <p>Cel mai relevant studiu empiric pentru contextul bucureștean vine din Brazilia. Thomas Fujiwara (2011) a exploatat un "experiment natural" elegant: în Brazilia, orașele cu peste 200.000 de locuitori aleg primarii prin sistem cu două tururi, în timp ce orașele sub acest prag folosesc plurality într-un singur tur. Folosind un design de regresie discontinuă — comparând orașe imediat sub și imediat deasupra pragului — Fujiwara a putut izola efectul cauzal al regulii electorale.</p>
+            
+            <p>Rezultatele sunt clare: în sistemele într-un singur tur, alegătorii abandonează semnificativ candidații pe locul trei și mai jos în favoarea primilor doi. Efectele sunt mai puternice în alegerile strânse. Aceasta este dovada cauzală cea mai robustă pentru efectul psihologic al lui Duverger în alegeri municipale.</p>
+            
+            <p>Dar studiul lui Fujiwara conține și o nuanță importantă: efectul duvergerian funcționează, dar nu elimină complet fragmentarea. Chiar și în orașele braziliene cu plurality, apar uneori trei sau patru candidați cu scoruri semnificative. Coordonarea perfectă nu este garantată.</p>
+            
+            <p>Studii pe <strong>ranked-choice voting (RCV)</strong> în orașe americane oferă comparații instructive. În New York, San Francisco, Minneapolis și alte orașe care au adoptat RCV pentru alegeri municipale, cercetătorii au documentat pattern-uri interesante. McCannon (proiect Harvard) arată că trecerea la RCV crește dramatic numărul de candidați — ceea ce sugerează că sistemul plurality într-un singur tur descurajează intrarea, dar nu suficient pentru a produce întotdeauna rezultate bipartite.</p>
+            
+            <p>Eric Adams a câștigat primăria democrată a New York-ului în 2021 (sub RCV) cu doar 30.8% din primele preferințe inițiale. Aceasta ilustrează un fenomen paralel: chiar și cu mecanisme care permit redistribuirea voturilor, fragmentarea poate fi substanțială.</p>
+
+            <h2>VII. Contextul românesc: Date și studii specifice</h2>
+            <p>Literatura pe alegerile locale românești este mai puțin dezvoltată decât cea pe democrațiile occidentale mature, dar câteva studii recente oferă perspective valoroase.</p>
+            
+            <p>Giugal, Johnston, Chiru și colaboratorii (2017) au analizat reforma electorală din 2008 și mecanismele de gerrymandering și malapportionment care au caracterizat-o. Studiul lor demonstrează că partidele românești au capacitatea de a manipula regulile electorale în avantaj propriu, ceea ce sugerează o cunoaștere sofisticată a consecințelor diferitelor aranjamente instituționale.</p>
+            
+            <p>Johnston și Giugal (2019) au documentat eșecul experimentului cu sistem mixt din 2008-2012. Un detaliu semnificativ: la alegerile din 2008, 76 din 316 deputați aleși au câștigat locuri fără pluralitate în circumscripțiile lor — un efect al regulilor complexe de redistribuire. Aceasta arată vulnerabilitatea sistemelor electorale la consecințe neintenționate.</p>
+            
+            <p>Cele mai relevante date pentru București vin din studii pe alegerile locale. Cercetătorii (Marin 2021, Bågenholm & Charron 2020) au calculat că în alegerile locale din 2016 și 2020, în medie, doar 16-17% din totalul alegătorilor eligibili din fiecare municipiu au decis câștigătorul. Aceasta combină efectul pluralității cu participarea scăzută: nu doar că câștigătorul poate avea sub 30% din voturi, dar participarea de sub 50% înseamnă că procentul din electoratul total este și mai mic.</p>
+            
+            <p>Un studiu experimental recent (Cambridge Core, 2025) pe corupție și vot în România a confirmat un pattern îngrijorător: deși alegătorii români au o normă anti-corupție puternică (demonstrată experimental), aceasta nu se traduce în comportament electoral real. Primarii corupți sunt frecvent realeși, în parte pentru că mobilizarea unui nucleu loial de partizani este suficientă pentru a câștiga în sisteme plurality cu participare scăzută.</p>
+
+            <h2>VIII. Mecanismele eșecului coordonării în București</h2>
+            <p>Sintetizând literatura, putem identifica mai multe mecanisme specifice care explică de ce București produce frecvent câștigători cu pluralități mici:</p>
+            
+            <ol>
+                <li><strong>Fragmentarea sistemului de partide la nivel național se reproduce local.</strong> România are un sistem multipartit la nivel național, cu 5-7 partide relevante în ultimii ani (PSD, PNL, USR, AUR, UDMR, plus formațiuni mai mici). Spre deosebire de SUA sau UK, unde sistemul plurality pentru Congres/Parlament a produs bipartitism, România folosește reprezentare proporțională pentru Parlament. Aceasta înseamnă că există o ofertă de partide care nu a trecut prin filtrul duvergerian. Când aceste partide competesc pentru primăria capitalei, ele aduc cu ele bazele lor electorale distincte. Coordonarea ar necesita ca unele partide să renunțe la candidatura proprie — un sacrificiu pentru care nu există întotdeauna nici stimulente, nici mecanisme.</li>
+                
+                <li><strong>Absența primaryurilor sau a mecanismelor formale de selecție a candidatului unic.</strong> În SUA, sistemul de primaryuri servește tocmai funcția de a rezolva problema coordonării înaintea alegerilor generale. Fiecare partid major își selectează un singur candidat, iar independenții care nu trec prin acest proces sunt marginalizați. România nu are un echivalent instituționalizat. Partidele își aleg candidații intern, dar nu există un mecanism care să forțeze coordonarea între partide. Rezultatul este că partide ideologic apropiate pot candida separat, fragmentând votul.</li>
+                
+                <li><strong>Calculele individuale ale liderilor de partid.</strong> Din perspectiva teoriei jocurilor, fiecare lider de partid face un calcul: care sunt costurile și beneficiile de a candida vs. a se retrage în favoarea unui alt candidat? Beneficiile candidaturii includ: vizibilitate pentru partid, mobilizarea bazei electorale pentru alegerile locale simultane (consilii), posibilitatea unei surprize electorale, și evitarea percepției de slăbiciune. Costurile retragerii includ: pierderea de față, nemulțumirea bazei electorale proprii, și întărirea unui rival care ar putea deveni mai puternic în viitor. Când aceste calcule duc la decizia de a candida pentru mai mulți lideri simultan, coordonarea eșuează.</li>
+                
+                <li><strong>Incertitudinea informațională și calitatea sondajelor.</strong> Efectul psihologic al lui Duverger funcționează doar dacă alegătorii știu cine este viabil. Dacă sondajele sunt imprecise sau fluctuante, alegătorii nu pot coordona eficient. În București, volatilitatea preferințelor și erorile de sondare pot menține incertitudinea până în ziua votului.</li>
+                
+                <li><strong>Votul expresiv vs. votul instrumental.</strong> Nu toți alegătorii votează pentru a influența rezultatul. Unii votează pentru a-și exprima identitatea, valorile, sau nemulțumirea. Pentru acești alegători "expresivi", argumentul "nu-ți irosi votul" nu funcționează — ei vor să voteze pentru candidatul care îi reprezintă cel mai bine, indiferent de șansele acestuia. Dacă o proporție semnificativă a electoratului votează expresiv (nu instrumental), efectul psihologic al lui Duverger este slăbit.</li>
+            </ol>
+
+            <h2>IX. The Big Insight: De ce contează toate acestea pentru București</h2>
+            <p>Sintetizând deceniile de cercetare pe sisteme electorale, insight-ul fundamental pentru București este următorul:</p>
+            <blockquote>Sistemul plurality într-un singur tur pentru alegerea primarului este un mecanism care funcționează bine în anumite condiții — dar acele condiții nu sunt îndeplinite în București.</blockquote>
+            <p>Legea lui Duverger presupune că elitele și alegătorii vor rezolva problema coordonării. Dar în București avem:</p>
+            <ul>
+                <li>Un sistem multipartit la nivel național care furnizează candidați multipli</li>
+                <li>Absența mecanismelor instituționale (precum primaryuri) care să forțeze coordonarea</li>
+                <li>Stimulente individuale pentru liderii de partid de a candida separat</li>
+                <li>Incertitudine informațională care împiedică votul strategic eficient</li>
+                <li>O proporție semnificativă de vot expresiv</li>
+            </ul>
+            <p>Rezultatul este eșecul sistematic al coordonării, care produce câștigători cu pluralități mici — uneori dramatic mici (20-30%).</p>
+
+            <h2>X. Implicațiile pentru legitimitate și guvernare</h2>
+            <p>Ce înseamnă acest eșec al coordonării pentru democrația locală?</p>
+            
+            <p>Prima implicație este una de <strong>legitimitate</strong>. Un primar ales cu 25% din voturi poate pretinde că a câștigat "alegerile democratice", dar 75% din cei care au votat au votat pentru altcineva. Dacă preferințele de ordin doi ar fi fost luate în considerare (cum ar fi într-un sistem cu două tururi sau RCV), un alt candidat ar fi putut câștiga.</p>
+            <p>Aceasta nu înseamnă neapărat că primarul cu 25% este "nelegitim" într-un sens juridic — el a câștigat conform regulilor în vigoare. Dar înseamnă că mandatul său popular este slab, ceea ce poate afecta capacitatea de a guverna, de a negocia cu consiliul local, și de a mobiliza sprijin pentru politici controversate.</p>
+            
+            <p>A doua implicație este una de <strong>vulnerabilitate la manipulare</strong>. Într-un sistem unde câștigătorul poate fi decis de diferențe mici între candidați fragmentați, actorii strategici au stimulente să manipuleze intrarea în cursă. Un partid ar putea sponsoriza candidaturi-fantomă pentru a fragmenta votul adversarilor. Sau un candidat ar putea fi convins să candideze tocmai pentru a juca rolul de "spoiler".</p>
+            <p>Riker ne-a avertizat că toate sistemele de vot sunt manipulabile. Dar unele sunt mai vulnerabile decât altele, iar plurality într-un singur tur este deosebit de vulnerabilă la manipularea prin intrare strategică.</p>
+            
+            <p>A treia implicație este una de <strong>responsabilizare (accountability)</strong>. Într-un sistem unde câștigătorul poate avea 25%, un primar incumbent își poate asigura realegerea prin simpla mobilizare a unui nucleu loial — fără a trebui să convingă o majoritate. Datele românești arată că 16-17% din electoratul eligibil decide câștigătorul. Aceasta înseamnă că un primar poate ignora 80%+ din cetățeni și totuși să supraviețuiască electoral.</p>
+
+            <h2>XI. Alternativele și trade-off-urile lor</h2>
+            <p>Literatura sugerează câteva alternative la plurality într-un singur tur pentru alegeri executive locale:</p>
+            
+            <p><strong>Sistemul cu două tururi (two-round/runoff)</strong> este cea mai comună alternativă. Dacă niciun candidat nu obține 50%+1 în primul tur, primii doi candidați se confruntă într-un tur secund. Aceasta garantează că câștigătorul final are cel puțin majoritate relativă față de rivalul direct.</p>
+            <ul>
+                <li><strong>Avantajele:</strong> forțează o alegere directă între două opțiuni, permite votul expresiv în primul tur fără "irosire", încurajează formarea de coaliții între tururi.</li>
+                <li><strong>Dezavantajele:</strong> costisitor (două runde de votare), participare de obicei mai mică în turul doi, poate elimina în primul tur un candidat care ar fi fost preferat de majoritate (efectul "center squeeze").</li>
+            </ul>
+            <p>Studiul lui Fujiwara pe Brazilia arată că sistemul cu două tururi reduce semnificativ fragmentarea în primul tur — alegătorii știu că vor avea o a doua șansă.</p>
+            
+            <p><strong>Ranked-Choice Voting (RCV)</strong> permite alegătorilor să-și ordoneze preferințele. Candidații sunt eliminați succesiv, iar voturile lor sunt redistribuite conform preferințelor de ordin inferior. Procesul continuă până când un candidat are majoritate.</p>
+            <ul>
+                <li><strong>Avantajele:</strong> elimină spoiler effect, permite vot expresiv fără "irosire", tinde să avantajeze candidații cu apel larg, reduce negativitatea campaniilor (candidații au stimulente să caute voturi de ordin 2-3 de la susținătorii rivalilor).</li>
+                <li><strong>Dezavantajele:</strong> complexitate (poate confuza alegătorii), transparență redusă (procesul de numărare este mai puțin intuitiv), poate produce câștigători care nu ar fi câștigat sub plurality (ceea ce unii consideră o problemă).</li>
+            </ul>
+            <p>Experiența din New York City și alte orașe americane sugerează că RCV funcționează, dar nu elimină complet fragmentarea sau competiția strânsă.</p>
+            
+            <p><strong>Approval voting</strong> permite alegătorilor să voteze pentru toți candidații pe care îi consideră acceptabili. Câștigă cel cu cele mai multe "aprobări".</p>
+            <ul>
+                <li><strong>Avantaje:</strong> extrem de simplu, elimină spoiler effect, favorizează candidații cu apel larg.</li>
+                <li><strong>Dezavantaje:</strong> rar folosit la scară mare, lipsă de experiență empirică.</li>
+            </ul>
+
+            <h2>XII. Concluzie: Ce ar trebui să știe un bucureștean informat</h2>
+            <p>Pentru un cetățean al Bucureștiului interesat de calitatea democrației locale, literatura pe sisteme electorale oferă câteva concluzii solide:</p>
+            <ol>
+                <li>Sistemul actual (plurality într-un singur tur) este vulnerabil la fragmentare și poate produce câștigători cu pluralități foarte mici. Aceasta nu este un accident sau o aberație, ci o consecință previzibilă a regulilor electorale în condițiile specifice ale sistemului politic românesc.</li>
+                <li>Eșecul coordonării — nu preferințele alegătorilor — este cel care produce aceste rezultate. Într-un univers alternativ unde partidele s-ar coordona și ar candida doar doi candidați serioși, același electorat ar produce un câștigător cu sprijin majoritar.</li>
+                <li>Legitimitatea mandatului unui primar ales cu 25% este inevitabil mai slabă decât cea a unuia ales cu 55%. Aceasta nu îl descalifică juridic, dar afectează capacitatea de a pretinde că vorbește "în numele bucureștenilor".</li>
+                <li>Există alternative viabile (două tururi, RCV) care ar adresa această problemă. Fiecare vine cu trade-off-uri proprii, dar toate ar produce câștigători cu sprijin majoritar formal mai puternic.</li>
+                <li>Reforma nu este imposibilă, dar necesită voință politică. Partidele care beneficiază de fragmentare (cele care câștigă cu pluralități mici) au stimulente să mențină status quo-ul. Reforma ar veni probabil doar din presiune publică sau dintr-o conjunctură politică neobișnuită.</li>
+            </ol>
+            
+            <p><strong>Insight-ul final:</strong> București ilustrează o tensiune fundamentală în teoria democrației. Sistemele plurality sunt simple și clare, dar presupun că societatea va rezolva singură problema coordonării. Când societatea eșuează în acest sens — din cauza fragmentării partidelor, a calculelor individuale ale liderilor, sau a incertitudinii informaționale — simplitatea sistemului devine un bug, nu o funcționalitate. Un primar ales de 25% din alegători într-un oraș de 2 milioane de oameni reprezintă, într-un sens substanțial, un eșec al mecanismului democratic de a agrega preferințele colective într-un rezultat reprezentativ.</p>
+            
+            <p>Acest eșec nu este inevitabil. Este produsul unor reguli specifice care ar putea fi schimbate. Dar schimbarea necesită mai întâi înțelegerea clară a problemei — și aceasta este contribuția pe care o poate aduce literatura de specialitate.</p>
+        </article>
+
+        <div class="separator">***</div>
+
+        <footer class="references">
+            <h3>Referințe Cheie (pentru lectură aprofundată)</h3>
+            <p>Duverger, M. (1954). <em>Political Parties: Their Organization and Activity in the Modern State</em>. Methuen.</p>
+            <p>Cox, G.W. (1997). <em>Making Votes Count: Strategic Coordination in the World's Electoral Systems</em>. Cambridge University Press.</p>
+            <p>Lijphart, A. (1994). <em>Electoral Systems and Party Systems: A Study of Twenty-Seven Democracies, 1945-1990</em>. Oxford University Press.</p>
+            <p>Lijphart, A. (1999/2012). <em>Patterns of Democracy: Government Forms and Performance in Thirty-Six Countries</em>. Yale University Press.</p>
+            <p>Riker, W.H. (1982). <em>Liberalism Against Populism: A Confrontation Between the Theory of Democracy and the Theory of Social Choice</em>. W.H. Freeman.</p>
+            <p>Rae, D.W. (1967). <em>The Political Consequences of Electoral Laws</em>. Yale University Press.</p>
+            <p>Fujiwara, T. (2011). "A Regression Discontinuity Test of Strategic Voting and Duverger's Law." <em>Princeton Working Paper</em>.</p>
+            <p>Bowler, S., Blais, A., & Grofman, B. (eds., 2009). <em>Duverger's Law of Plurality Voting: The Logic of Party Competition in Canada, India, the United Kingdom and the United States</em>. Springer.</p>
+            <p>Giugal, A., Johnston, R., Chiru, M., et al. (2017). "Gerrymandering and Malapportionment, Romanian Style: The 2008 Electoral System." <em>East European Politics and Societies</em> 31(3).</p>
+            <p>Johnston, R. & Giugal, A. (2019). "Reforming an Electoral System — An Experiment That Failed: Romania 2008-2012." <em>Representation</em> 56(1).</p>
+        </footer>
+    </main>
+
+    <script>
+        // Progress Bar
+        window.onscroll = function() {myFunction()};
+        function myFunction() {
+          var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var scrolled = (winScroll / height) * 100;
+          document.getElementById("progress-bar").style.width = scrolled + "%";
+        }
+
+        // Dark Mode Toggle
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = document.getElementById('toggle-icon');
+        const text = document.getElementById('toggle-text');
+        const html = document.documentElement;
+
+        // Check local storage
+        if (localStorage.getItem('theme') === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+            icon.textContent = '☀';
+            text.textContent = 'Light Mode';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                icon.textContent = '☾';
+                text.textContent = 'Dark Mode';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                icon.textContent = '☀';
+                text.textContent = 'Light Mode';
+            }
+        });
+    </script>
+</body>
+</html>
